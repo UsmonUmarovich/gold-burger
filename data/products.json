@@ -1,2 +1,4 @@
-{"img":"dsa","title":"ads","desc":"asd","price":"32123123","_id":"6b5BQxo47OnzPe7d"}
-{"img":"dsa","title":"dsa","desc":"dsa","price":"231","_id":"esXWUwJqmzds4CXl"}
+{"id":1705060334740,"_id":"1705060334740","title":"Coffee","desc":"Oddiy","price":"5000","category":"Ichimlik"}
+{"id":1705060374677,"_id":"1705060374677","title":"Cake","desc":"Normal","price":"100000","category":"Desert"}
+{"id":1705060399395,"_id":"1705060399395","title":"Lavash","desc":"Oddiy","price":"20000","category":"Lavash"}
+{"id":1706040701082,"_id":"1706040701082","title":"Burger","desc":"Oddiy","price":"30000","category":"Burger"}

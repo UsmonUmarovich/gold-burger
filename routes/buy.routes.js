@@ -1,8 +1,5 @@
 import { Router } from "express";
 import buy, { AllBoughtProducts } from "../services/buy.service.js";
-import cart, {
-  deleteProductInCartByUsername,
-} from "../services/addToCart.service.js";
 
 const Buy = Router();
 const _buy = [];
@@ -13,29 +10,49 @@ Buy.get("/buy", (req, res) => {
   });
 });
 
-Buy.post("/buy/:username", (req, res) => {
-  const username = req.params.username;
-  const { name, surname, phone, address, comment } = req.body;
-  const doc = {
-    name,
-    surname,
-    phone,
-    address,
-    comment,
-  };
+Buy.get("/buy/:id", (req, res) => {
+  const id = req.params.id;
 
-  cart.find({ username }, (err, document) => {
+  buy.findOne({ _id: id }, (err, document) => {
     if (err) {
-      console.log(err);
+      res.status(500).json({ error: err });
     } else {
       if (document) {
-        buy.insert([[doc, document]], (err, newDocs) => {
-          console.log("successfully bought products", newDocs);
-        });
-        deleteProductInCartByUsername(req.params.username);
+        res.json(document);
+      } else {
+        res.status(404).json({ message: "Product not found" });
       }
     }
   });
+});
+
+Buy.post("/buy/", (req, res) => {
+  const {
+    name,
+    surname,
+    middlename,
+    phone,
+    address,
+    comment,
+    products,
+    time,
+    totalPrice,
+  } = req.body;
+  const doc = {
+    address,
+    comment,
+    products,
+    name,
+    surname,
+    middlename,
+    phone,
+    time,
+    totalPrice,
+  };
+  buy.insert(doc, (err, newDocs) => {
+    console.log("successfully bought products", newDocs);
+  });
+
   res.json({ message: "you successfully bought products" });
 });
 

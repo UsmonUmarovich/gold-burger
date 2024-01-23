@@ -10,24 +10,78 @@ registerRoutes.get("/register", (req, res) => {
 });
 
 registerRoutes.post("/register", (req, res) => {
-  const { username, password, name, surname } = req.body;
+  const { password, name, surname, middlename, phone } = req.body;
 
-  if (!username || !password || !name || !surname) {
-    return res.status(400).json({ message: "Fill the inputs" });
+  if (!password || !name || !phone) {
+    return res.status(400).json("All of them are required");
   }
 
-  registerUser(username, password, name, surname, (err, newUser, message) => {
+  registerUser(
+    password,
+    name,
+    surname,
+    middlename,
+    phone,
+    (err, newUser, message) => {
+      if (err) {
+        return res.status(500).json({ message: "Internal server error" });
+      }
+
+      if (!newUser) {
+        return res.status(400).json({ message });
+      }
+
+      res
+        .status(201)
+        .json({ message: "User registered successfully", user: newUser });
+    }
+  );
+});
+
+// Put request with "id"
+registerRoutes.put("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const document = req.body;
+
+  if (!document || Object.keys(document).length === 0) {
+    return res.status(400).json({ error: "Request body is empty or invalid" });
+  }
+
+  users.update(
+    { _id: id },
+    { $set: document },
+    {},
+    (err, numReplaced, upsert) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        if (numReplaced === 0 && !upsert) {
+          res.status(404).json({ message: "User not found" });
+        } else {
+          if (upsert) {
+            res.status(201).json({ message: "User inserted successfully" });
+          } else {
+            res.send(document);
+          }
+        }
+      }
+    }
+  );
+});
+
+registerRoutes.get("/users/:id", (req, res) => {
+  const id = req.params.id;
+
+  users.findOne({ _id: id }, (err, document) => {
     if (err) {
-      return res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ error: err });
+    } else {
+      if (document) {
+        res.send(document);
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
     }
-
-    if (!newUser) {
-      return res.status(400).json({ message });
-    }
-
-    res
-      .status(201)
-      .json({ message: "User registered successfully", user: newUser });
   });
 });
 

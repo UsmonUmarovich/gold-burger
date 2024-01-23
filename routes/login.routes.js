@@ -1,27 +1,27 @@
 import { Router } from "express";
-import { loginUser } from "../services/login.service.js";
+import users from "../services/register.service.js";
 
 const LoginRoutes = Router();
 
 LoginRoutes.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  const { phone, password } = req.body;
 
-  if (!username || !password) {
+  if (!phone || !password) {
     return res
       .status(400)
       .json({ message: "Username and password are required" });
   }
 
-  loginUser(username, password, (err, user, message) => {
+  users.findOne({ phone, password }, (err, user) => {
     if (err) {
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json(err);
     }
 
     if (!user) {
-      return res.status(401).json({ message });
+      return res.json("Invalid phone or password");
     }
 
-    res.status(200).json(user);
+    res.send(user);
   });
 });
 
