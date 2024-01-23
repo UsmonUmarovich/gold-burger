@@ -1,0 +1,229 @@
+.nav {
+  border-bottom: 1px solid #ffd700;
+  position: fixed;
+  top: 0;
+  z-index: 9999999;
+  width: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: rgba(51, 51, 51, 0.8);
+
+  &-container {
+    background-color: white;
+    max-width: 1360px;
+    min-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  &-content {
+    @include flex(center, space-between);
+  }
+
+  &-list {
+    @include flex(center, unset);
+    gap: 40px;
+
+    @media screen and (max-width: 930px) {
+      gap: 7px;
+    }
+
+    &_active {
+      transform: translateX(0);
+    }
+
+    @media screen and (max-width: 700px) {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: #f6f8f9;
+      transform: translateX(100%);
+      transition: 0.5s ease-in-out;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 80px;
+      color: #000;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    &.active {
+      transform: translateX(0);
+    }
+  }
+
+  &-item {
+    @include flex(center, space-between);
+  }
+
+  &-links {
+    @include flex(center, unset);
+    gap: 15px;
+
+    @media screen and (max-width: 930px) {
+      gap: 7px;
+    }
+
+    @media screen and (max-width: 700px) {
+      flex-direction: column;
+      align-items: start;
+      gap: 24px;
+      background: #fff;
+      padding: 20px;
+      width: 100%;
+      border-radius: 5px;
+    }
+  }
+
+  &-menu__close {
+    position: absolute;
+    top: 30px;
+    right: 27px;
+    border: none;
+    background: #fff;
+    padding: 11px;
+    border-radius: 4px;
+    display: none;
+
+    @media screen and (max-width: 700px) {
+      display: block;
+      z-index: 999;
+    }
+  }
+
+  &-items {
+    @include flex(center, unset);
+    gap: 20px;
+  }
+
+  &-backet {
+    @include flex(center, unset);
+    @include adaptive-value("font-size", 17, 15);
+    gap: 10px;
+    border: none;
+    background: #f6f8f9;
+    padding: 12px 11.8px 12px 12px;
+    border-radius: 4px;
+    color: #000;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+
+    &__title {
+      @media screen and (max-width: 730px) {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 280px) {
+      display: none;
+    }
+  }
+
+  &-user {
+    border: none;
+    padding: 12px;
+    background: #f6f8f9;
+    @include flex(center, center);
+    border-radius: 4px;
+
+    @media screen and (max-width: 280px) {
+      display: none;
+    }
+  }
+
+  &-link {
+    color: #5d5d5d;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.41px;
+    @include adaptive-value("font-size", 16, 15);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid #ffd700;
+      color: #000;
+    }
+  }
+
+  &-logo__list {
+    @include flex(center, unset);
+    background-color: transparent;
+    height: 90px;
+    padding: 14px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: 600;
+    @include adaptive-value("font-size", 18, 15);
+  }
+
+  &-logo__title {
+    @media screen and (max-width: 830px) {
+      display: none;
+    }
+  }
+
+  &-logo {
+    @include adaptive-value("width", 70, 60);
+  }
+
+  &-menu {
+    border: none;
+    background-color: #f6f8f9;
+    padding: 12px 11.8px 12px 12px;
+    border-radius: 4px;
+    display: none;
+
+    @media screen and (max-width: 700px) {
+      display: block;
+    }
+  }
+
+  &-backet_quantity {
+    color: #000;
+  }
+
+  &-user_modal {
+    position: relative;
+  }
+
+  &-user__edit_modal {
+    position: absolute;
+    top: 60px;
+    @include flex(start, center);
+    gap: 10px;
+    flex-direction: column;
+    background-color: white;
+    right: 0;
+    padding: 15px;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &-user__edit_modal.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &-user_exit {
+    border: none;
+    font-weight: 500;
+    @include adaptive-value("font-size", 15, 13);
+    @include flex(center, unset);
+    gap: 10px;
+  }
+
+  &-user__settings {
+    font-weight: 500;
+    @include adaptive-value("font-size", 15, 13);
+    @include flex(center, unset);
+    gap: 10px;
+  }
+}

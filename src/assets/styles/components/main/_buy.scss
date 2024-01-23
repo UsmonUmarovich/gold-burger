@@ -1,0 +1,46 @@
+.buy{
+    margin-top: 130px;
+
+    &-card{
+        // background-color: #fff;
+        // height: 100%;
+        // padding: 35px 20px;
+        // @include flex(start, center);
+        // flex-direction: column;
+        // width: 100%;
+        // border-radius: 5px;
+        // line-height: 50px;
+        // overflow-y: auto;
+        width: 950px;
+        background-color: white;
+        padding: 30px;
+        // z-index: 999999999999999999999999999999;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 4px;
+        position: fixed;
+        height: 80vh;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    &-modal{
+        position: fixed;
+        // z-index: 999;
+        top: 0;
+        left: 0;
+        // top: 0;
+        @include flex(center, center);
+        width: 100%;
+        height: 110vh;
+        margin: 0 auto;
+        transform: translateY(-100%);
+        transition: all 0.2s ease-in-out;
+
+        &.show{
+            transform: translateY(0);
+        }
+    }
+
+}
