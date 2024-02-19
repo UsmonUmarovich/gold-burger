@@ -9,6 +9,7 @@ export function registerUser(
   surname,
   middlename,
   phone,
+  role,
   callback
 ) {
   users.findOne({ phone }, (err, phon) => {
@@ -27,6 +28,7 @@ export function registerUser(
         name,
         surname,
         middlename,
+        role,
         phone,
       },
       (err, newUser) => {

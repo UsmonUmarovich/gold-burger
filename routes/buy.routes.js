@@ -37,6 +37,7 @@ Buy.post("/buy/", (req, res) => {
     products,
     time,
     totalPrice,
+    status
   } = req.body;
   const doc = {
     address,
@@ -48,12 +49,43 @@ Buy.post("/buy/", (req, res) => {
     phone,
     time,
     totalPrice,
+    status
   };
   buy.insert(doc, (err, newDocs) => {
     console.log("successfully bought products", newDocs);
   });
 
   res.json({ message: "you successfully bought products" });
+});
+
+Buy.put("/buy/:id", (req, res) => {
+  const id = req.params.id;
+  const document = req.body;
+
+  if (!document || Object.keys(document).length === 0) {
+    return res.status(400).json({ error: "Request body is empty or invalid" });
+  }
+
+  buy.update(
+    { _id: id },
+    { $set: document },
+    {},
+    (err, numReplaced, upsert) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        if (numReplaced === 0 && !upsert) {
+          res.status(404).json({ message: "not found" });
+        } else {
+          if (upsert) {
+            res.status(201).json({ message: "inserted successfully" });
+          } else {
+            res.send(document);
+          }
+        }
+      }
+    }
+  );
 });
 
 export default Buy;

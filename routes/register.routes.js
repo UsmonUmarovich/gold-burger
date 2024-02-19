@@ -10,7 +10,7 @@ registerRoutes.get("/register", (req, res) => {
 });
 
 registerRoutes.post("/register", (req, res) => {
-  const { password, name, surname, middlename, phone } = req.body;
+  const { password, name, surname, middlename, phone, role } = req.body;
 
   if (!password || !name || !phone) {
     return res.status(400).json("All of them are required");
@@ -22,6 +22,7 @@ registerRoutes.post("/register", (req, res) => {
     surname,
     middlename,
     phone,
+    role,
     (err, newUser, message) => {
       if (err) {
         return res.status(500).json({ message: "Internal server error" });
@@ -73,6 +74,22 @@ registerRoutes.get("/users/:id", (req, res) => {
   const id = req.params.id;
 
   users.findOne({ _id: id }, (err, document) => {
+    if (err) {
+      res.status(500).json({ error: err });
+    } else {
+      if (document) {
+        res.send(document);
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    }
+  });
+});
+
+registerRoutes.get("/usersp/:phone", (req, res) => {
+  const phone = req.params.phone;
+
+  users.findOne({ phone: phone }, (err, document) => {
     if (err) {
       res.status(500).json({ error: err });
     } else {
