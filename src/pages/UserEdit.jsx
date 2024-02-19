@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import CloseIcon from "../assets/icons/CloseIcon";
 import query from "../services/api/api.service";
 
@@ -76,7 +76,13 @@ function UserEdit() {
   query.getUserById(userId).then((res) => setUser(res.data));
   return (
     <div className="user">
-      <div className="container">
+      <div className="user_menu">
+        <ul className="user_menu-list">
+          <NavLink to="/user/orders">Buyurtmalar</NavLink>
+          <NavLink to={`/${userId}`}>Sozlamalar</NavLink>
+        </ul>
+      </div>
+      <div className="user_change">
         {userId ? (
           <>
             {id == user._id ? (

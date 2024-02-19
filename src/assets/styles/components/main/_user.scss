@@ -1,9 +1,75 @@
 .user {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin-top: 130px;
+  width: 90%;
+  margin: 150px auto;
+
+  &-img{
+    overflow-x: hidden;
+    width: 100px;
+    // min-width: 100px;
+  }
+
+  &_menu {
+    width: 100%;
+
+    &-list{
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin: 50px auto;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      line-height: 30px;
+    }
+  }
+
+  &_category{
+    display: flex;
+    gap: 5px;
+
+    &-btn{
+      background-color: inherit;
+      font-size: 13px;
+      // width: 120px;
+      // height: 35px;
+      padding: 10px 40px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &_orders{
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    width: 100%;
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 15px;
+
+    &-title{
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    &-value{
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+
+  &_order{
+    display: flex;
+    gap: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &_change {
+    // margin-right: 30px;
+  }
 
   &-card {
     width: 750px;
@@ -83,13 +149,23 @@
       border-radius: 4px;
       transition: all 0.2s ease-in-out;
 
-      &:hover{
+      &:hover {
         background-color: #ff1100;
       }
     }
 
     &:hover {
       background-color: #ffd700;
+    }
+
+    &-active {
+      background-color: #ffd700;
+      border: 1px solid rgba(0, 0, 0, 0.227);
+      padding: 10px 70px;
+      font-weight: 500;
+      font-size: 16px;
+      border-radius: 4px;
+      transition: all 0.2s ease-in-out;
     }
   }
 }

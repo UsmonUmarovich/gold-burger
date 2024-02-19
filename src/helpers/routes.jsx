@@ -5,7 +5,9 @@ import Register from "../pages/Register";
 import UserEdit from "../pages/UserEdit";
 import BoughtProducts from "../pages/BoughtProducts";
 import Login from "../pages/login";
-
+import Chef from "../pages/Chef";
+import Deliver from "../pages/Deliver";
+import UserOrders from "../pages/UserOrders"
 
 export const routes = [
   {
@@ -57,4 +59,19 @@ export const routes = [
     path: "/changepass/:id",
     element: <UserEdit />,
   },
+
+  {
+    path: "/chef/",
+    element: <Chef />,
+  },
+
+  {
+    path: "/deliver/",
+    element: <Deliver />
+  },
+
+  {
+    path: "/user/orders",
+    element: <UserOrders />
+  }
 ];

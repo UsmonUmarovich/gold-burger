@@ -13,7 +13,6 @@ import notFound from "../../assets/images/notFound.png";
 import { Link } from "react-scroll";
 import { useCart } from "react-use-cart";
 import { linksData } from "../../data/linksData";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { FiLogIn } from "react-icons/fi";
 import query from "../../services/api/api.service";
@@ -34,8 +33,12 @@ function Navbar() {
   const [active, setActive] = useState(false);
   const [modal, setModal] = useState(false);
   const [isLogged, setIsLogged] = useState();
+  const [role, setRole] = useState();
   const [image, setImage] = useState([]);
+  const [buyApi, setBuyApi] = useState([]);
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
+  const [getProductId, setGetProductId] = useState("");
   const [buy, setBuy] = useState(false);
   const [buyProducts, setBuyProducts] = useState({
     name: localStorage.getItem("nameValue"),
@@ -47,6 +50,7 @@ function Navbar() {
     products: items,
     time: Date(),
     totalPrice: cartTotal,
+    status: "Yangi",
   });
 
   // LocalStorages
@@ -111,6 +115,12 @@ function Navbar() {
     query.getAllImages().then((res) => setImage(res.data));
   };
 
+  const roleApi = () => {
+    query.getUserById(userID).then((res) => setRole(res.data.role));
+  };
+
+  query.getAllBoughtProducts().then((res) => setBuyApi(res.data));
+
   // Buy API and Functions
 
   const handleInput = (event) => {
@@ -127,6 +137,7 @@ function Navbar() {
       ...buyProducts,
       products: items,
       totalPrice: cartTotal,
+      status: "Yangi",
     });
     alert(
       `Hozir sizning ${buyProducts.phone} telefon raqamingizga operatorlarimiz bog'lanishadi!`
@@ -138,6 +149,7 @@ function Navbar() {
   useEffect(() => {
     isUserLogged();
     imageApi();
+    roleApi();
   }, []);
 
   return (
@@ -223,6 +235,81 @@ function Navbar() {
                       {name} {surname}
                     </h1>{" "}
                     <hr style={{ width: "100%" }} />
+                    {/* {buyApi.map((buy, index) => {
+                      return (
+                        <>
+                          {buy.phone == phone ? (
+                            <>
+                              {buy.status == "Yangi" ? (
+                                "Navbatingiz kelmadi!"
+                              ) : buy.status ==
+                                "Yetqazildi" ? null : buy.status ==
+                                "Bekor qilindi" ? null : (
+                                <NavLink
+                                  onClick={() => {
+                                    setShow2(true), setGetProductId(buy._id);
+                                  }}
+                                >
+                                  {buy.status}
+                                </NavLink>
+                              )}
+                              <div
+                                className={
+                                  show2
+                                    ? "nav-user__edit_modal2 show"
+                                    : "nav-user__edit_modal2"
+                                }
+                              >
+                                <NavLink onClick={() => setShow2(false)}>
+                                  <CloseIcon />
+                                </NavLink>
+                                {buy._id == getProductId
+                                  ? buy.products.map((product, index) => {
+                                      return (
+                                        <>
+                                          {buy.status == "Yangi" ? (
+                                            <div>
+                                              <h1>{product.title}</h1>
+                                              <h1>{product.desc}</h1>
+                                              <h1>{product.price}so'm</h1>
+                                              <h1>{product.quantity}ta</h1>
+                                              <hr />
+                                            </div>
+                                          ) : buy.status ==
+                                            "Yetqazildi" ? null : buy.status ==
+                                            "Bekor qilindi" ? null : (
+                                            <div>
+                                              <h1>{product.title}</h1>
+                                              <h1>{product.desc}</h1>
+                                              <h1>{product.price}so'm</h1>
+                                              <h1>{product.quantity}ta</h1>
+                                            </div>
+                                          )}
+                                        </>
+                                      );
+                                    })
+                                  : null}
+                              </div>
+                            </>
+                          ) : null}
+                        </>
+                      );
+                    })} */}
+                    <NavLink
+                      className={"nav-user__settings"}
+                      to={"/user/orders"}
+                    >
+                      {" "}
+                      <Settings />
+                      Buyurtmalar
+                    </NavLink>
+                    {role !== "user" ? (
+                      <NavLink className={"nav-user__settings"} to={role}>
+                        <Settings /> {role}
+                      </NavLink>
+                    ) : (
+                      ""
+                    )}
                     <NavLink className={"nav-user__settings"} to={userID}>
                       {" "}
                       <Settings /> Sozlamalar

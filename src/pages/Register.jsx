@@ -12,6 +12,7 @@ function Register() {
     middlename: "",
     password: "",
     phone: "",
+    role: "user"
   });
 
   const navigate = useNavigate();

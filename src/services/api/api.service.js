@@ -111,6 +111,16 @@ const query = {
     }
   },
 
+  putBuyProducts: async (id, buy) => {
+    try {
+      let result = await api.put("/buy/" + id, buy);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
   // Login and Register API
 
   loginApi: async (allow) => {
@@ -155,6 +165,16 @@ const query = {
     }
   },
 
+  getUserByPhone: async (phone) => {
+    try {
+      let result = await api.get("/usersp/" + phone);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
   putUserValue: async (id, allow) => {
     try {
       let result = await api.put("/users/" + id, allow);
@@ -168,6 +188,100 @@ const query = {
   deleteUserById: async (id) => {
     try {
       let result = await api.delete("/register/" + id);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  // Chef API
+
+  getAllChefsProducts: async () => {
+    try {
+      let result = await api.get("/chef/");
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  postChefByBuyId: async (id, allow) => {
+    try {
+      let result = await api.post("/chef/" + id, allow);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  postBuyByChefId: async (id) => {
+    try {
+      let result = await api.post("/chefback/" + id);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  putChef: async (id, allow) => {
+    try {
+      let result = await api.put("/chef/" + id, allow);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  // Deliver API
+
+  getAllDelivers: async () => {
+    try {
+      let result = await api.get("/deliver/");
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  getDeliverById: async (id) => {
+    try {
+      let result = await api.get("/deliver/" + id);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  getDeliverByPhone: async (phone) => {
+    try {
+      let result = await api.get("/deliverp/" + phone);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  postDeliver: async (id, allow) => {
+    try {
+      let result = await api.post("/deliver/" + id, allow);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  putDeliver: async (id, allow) => {
+    try {
+      let result = await api.put("/deliver/" + id, allow);
       return result;
     } catch (error) {
       console.log(error);

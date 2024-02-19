@@ -11,6 +11,8 @@ function Admin() {
   const [postProduct, setPostProduct] = useState({});
   const [changeProduct, setChangeProduct] = useState({});
   const [changeImage, setChangeImage] = useState();
+  const [changeRole, setChangeRole] = useState("");
+  const [findUser, setFindUser] = useState("");
 
   const categories = [
     "Burger",
@@ -29,6 +31,13 @@ function Admin() {
 
   const CloseModal = () => {
     setActive(false);
+  };
+
+  const handleChangeRoleSubmit = () => {
+    query
+      .getUserByPhone(findUser)
+      .then((res) => query.putUserValue(res.data._id, { role: changeRole }));
+    alert(`Owner of ${findUser} changed role to ${changeRole}`);
   };
 
   const handleInput = (e) => {
@@ -77,8 +86,8 @@ function Admin() {
   }
 
   const handleDelete = async (id) => {
-    query.deleteProductById(id)
-    window.location.reload()
+    query.deleteProductById(id);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -88,9 +97,30 @@ function Admin() {
   return (
     <div className="admin">
       <div className="container">
-        <Link to="/admin/buying" className="admin-link">
+        <Link to="/admin/buying" className="user-button">
           Zakalar ro'yhati
         </Link>
+        <Link to="/chef" className="user-button">
+          Oshpazlar
+        </Link>
+        <input
+          type="number"
+          className="user-input"
+          placeholder="Phone number"
+          onChange={(e) => setFindUser(e.target.value)}
+        />
+        <select
+          className="user-input"
+          onChange={(e) => setChangeRole(e.target.value)}
+        >
+          <option>tanlang</option>
+          <option>admin</option>
+          <option>user</option>
+          <option>deliver</option>
+        </select>
+        <button onClick={handleChangeRoleSubmit} className="user-button">
+          Role ni o'zgartirish
+        </button>
         <div className="admin-content">
           <form className="admin-card">
             <input
@@ -103,13 +133,6 @@ function Admin() {
             />
             Rasm:
             <img src={changeImage} width={100} alt="" />
-            {/* <button
-              type="submit"
-              onClick={handleImageSubmit}
-              className="products-backet"
-            >
-              Submit
-            </button> */}
             <input
               type="text"
               placeholder="mahsulot nomi"
@@ -148,13 +171,6 @@ function Admin() {
               Qo'shish
             </button>
           </form>
-          {/* {allimage.map((data) => {
-            return (
-              <div>
-                <img src={data.img} alt="" />
-              </div>
-            );
-          })} */}
           <>
             {categories.map((category, index) => {
               return (
